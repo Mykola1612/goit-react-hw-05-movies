@@ -1,14 +1,16 @@
 import axios from 'axios';
 import { Loader } from 'components/Loader';
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
-export const MoviesPage = () => {
+const MoviesPage = () => {
   const [searchFilms, setSearchFilms] = useState([]);
   const [loader, setLoader] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const queryValue = searchParams.get('query');
+
+  const location = useLocation();
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -48,7 +50,12 @@ export const MoviesPage = () => {
           searchFilms.map(searchFilm => {
             return (
               <li key={searchFilm.id}>
-                <Link to={`/movies/${searchFilm.id}`}>{searchFilm.title}</Link>
+                <Link
+                  state={{ from: location }}
+                  to={`/movies/${searchFilm.id}`}
+                >
+                  {searchFilm.title}
+                </Link>
               </li>
             );
           })}
@@ -56,3 +63,5 @@ export const MoviesPage = () => {
     </div>
   );
 };
+
+export default MoviesPage;

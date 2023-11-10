@@ -1,13 +1,18 @@
 import axios from 'axios';
 import { Loader } from 'components/Loader';
-import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
-import styles from './MovieDetailsPage.module.css';
+import { useEffect, useRef, useState } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import styles from '../components/MovieDetailsPage.module.css';
 
-export const MoviesDetailsPge = () => {
+const MoviesDetailsPge = () => {
   const { movieId } = useParams();
   const [loader, setLoader] = useState(false);
   const [film, setFilm] = useState(null);
+
+  const location = useLocation();
+  console.log('location: ', location);
+
+  const backLinkRef = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     if (!movieId) {
@@ -20,7 +25,6 @@ export const MoviesDetailsPge = () => {
           ` https://api.themoviedb.org/3/movie/${movieId}?language=en-US&api_key=c2d5ae1916124f8e18d2a212d8e4ab11`
         );
         setFilm(data);
-        console.log(data);
       } catch (error) {
       } finally {
         setLoader(false);
@@ -41,6 +45,7 @@ export const MoviesDetailsPge = () => {
   return (
     <div>
       {loader && <Loader />}
+      <Link to={backLinkRef.current}>Go back</Link>
       {film !== null && (
         <>
           {' '}
@@ -92,3 +97,5 @@ export const MoviesDetailsPge = () => {
     </div>
   );
 };
+
+export default MoviesDetailsPge;

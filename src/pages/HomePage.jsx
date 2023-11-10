@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { Loader } from 'components/Loader';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-export const HomePage = () => {
+const HomePage = () => {
   const [loader, setLoader] = useState(false);
   const [films, setFilms] = useState([]);
+
+  const location = useLocation();
 
   useEffect(() => {
     const fetchFn = async () => {
@@ -15,7 +17,6 @@ export const HomePage = () => {
           `https://api.themoviedb.org/3/trending/all/day?language=en-US&api_key=c2d5ae1916124f8e18d2a212d8e4ab11`
         );
         setFilms(data.results);
-        console.log(data);
       } catch (error) {
       } finally {
         setLoader(false);
@@ -32,7 +33,9 @@ export const HomePage = () => {
         {films.map(film => {
           return (
             <li key={film.id}>
-              <Link to={`/movies/${film.id}`}>{film.name || film.title}</Link>
+              <Link state={{ from: location }} to={`/movies/${film.id}`}>
+                {film.name || film.title}
+              </Link>
             </li>
           );
         })}
@@ -40,3 +43,5 @@ export const HomePage = () => {
     </div>
   );
 };
+
+export default HomePage;
