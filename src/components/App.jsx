@@ -1,7 +1,9 @@
+import { CastPage } from 'pages/CastPage';
 import { HomePage } from 'pages/HomePage';
-import { MoviesDetailsPge } from 'pages/MovieDetailsPage';
+import { MoviesDetailsPge } from 'pages/MovieDetailsPage.jsx';
 import { MoviesPage } from 'pages/MoviesPage';
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { ReviewsPage } from 'pages/ReviewsPage';
+import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
 
 export const App = () => {
   return (
@@ -20,7 +22,11 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/movies" element={<MoviesPage />} />
-          <Route path="/movies/:movieId" element={<MoviesDetailsPge />} />
+          <Route path="/movies/:movieId" element={<MoviesDetailsPge />}>
+            <Route path="cast" element={<CastPage />} />
+            <Route path="reviews" element={<ReviewsPage />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
     </div>
