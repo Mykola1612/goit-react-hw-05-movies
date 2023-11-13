@@ -1,1 +1,0 @@
-{"version":3,"file":"static/css/678.ed7a88f1.chunk.css","mappings":"AAAA,uCAEE,uBAAgB,CAAhB,eAAgB,CADhB,YAEF","sources":["components/MovieDetailsPage.module.css"],"sourcesContent":[".cardContainer {\n  display: flex;\n  column-gap: 20px;\n}\n"],"names":[],"sourceRoot":""}
