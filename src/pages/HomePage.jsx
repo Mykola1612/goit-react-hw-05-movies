@@ -1,7 +1,8 @@
 import axios from 'axios';
+import FilmsList from 'components/FilmsList/FilmsList';
 import { Loader } from 'components/Loader';
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const HomePage = () => {
   const [loader, setLoader] = useState(false);
@@ -29,17 +30,7 @@ const HomePage = () => {
     <div>
       {loader && <Loader />}
       <h1>Trending today</h1>
-      <ul>
-        {films.map(film => {
-          return (
-            <li key={film.id}>
-              <Link state={{ from: location }} to={`/movies/${film.id}`}>
-                {film.name || film.title}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+      <FilmsList films={films} location={location} />
     </div>
   );
 };

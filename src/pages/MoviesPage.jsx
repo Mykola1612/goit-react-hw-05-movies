@@ -1,7 +1,9 @@
 import axios from 'axios';
+import FilmsList from 'components/FilmsList/FilmsList';
 import { Loader } from 'components/Loader';
+import Search from 'components/Search/Search';
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 const MoviesPage = () => {
   const [searchFilms, setSearchFilms] = useState([]);
@@ -12,10 +14,8 @@ const MoviesPage = () => {
 
   const location = useLocation();
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    const value = e.currentTarget.elements.inputParams.value;
-    setSearchParams({ query: value });
+  const handleSubmit = searchValue => {
+    setSearchParams({ query: searchValue });
   };
 
   useEffect(() => {
@@ -41,25 +41,8 @@ const MoviesPage = () => {
   return (
     <div>
       {loader && <Loader />}
-      <form action="submit" onSubmit={handleSubmit}>
-        <input type="text" name="inputParams" />
-        <button>Search</button>
-      </form>
-      <ul>
-        {searchFilms.length !== 0 &&
-          searchFilms.map(searchFilm => {
-            return (
-              <li key={searchFilm.id}>
-                <Link
-                  state={{ from: location }}
-                  to={`/movies/${searchFilm.id}`}
-                >
-                  {searchFilm.title}
-                </Link>
-              </li>
-            );
-          })}
-      </ul>
+      <Search handleSubmit={handleSubmit} />
+      <FilmsList films={searchFilms} location={location} />
     </div>
   );
 };
