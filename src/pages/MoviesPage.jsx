@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { fetch } from 'components/Fetch/fetch';
 import FilmsList from 'components/FilmsList/FilmsList';
 import { Loader } from 'components/Loader';
 import Search from 'components/Search/Search';
@@ -15,6 +15,11 @@ const MoviesPage = () => {
   const location = useLocation();
 
   const handleSubmit = searchValue => {
+    if (searchValue === '') {
+      setSearchParams({});
+      setSearchFilms([]);
+      return;
+    }
     setSearchParams({ query: searchValue });
   };
 
@@ -25,10 +30,9 @@ const MoviesPage = () => {
     const fetchFn = async () => {
       try {
         setLoader(true);
-        const { data } = await axios.get(
-          ` https://api.themoviedb.org/3/search/movie?query=${queryValue}&include_adult=false&language=en-US&page=1&api_key=c2d5ae1916124f8e18d2a212d8e4ab11`
+        const data = await fetch(
+          `search/movie?query=${queryValue}&include_adult=false`
         );
-
         setSearchFilms(data.results);
       } catch (error) {
       } finally {

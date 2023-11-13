@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { fetch } from 'components/Fetch/fetch';
 import FilmsList from 'components/FilmsList/FilmsList';
 import { Loader } from 'components/Loader';
 import { useEffect, useState } from 'react';
@@ -14,9 +14,7 @@ const HomePage = () => {
     const fetchFn = async () => {
       try {
         setLoader(true);
-        const { data } = await axios.get(
-          `https://api.themoviedb.org/3/trending/all/day?language=en-US&api_key=c2d5ae1916124f8e18d2a212d8e4ab11`
-        );
+        const data = await fetch(`trending/all/day`);
         setFilms(data.results);
       } catch (error) {
       } finally {

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { fetch } from 'components/Fetch/fetch';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -12,11 +12,8 @@ const CastPage = () => {
     }
     const fetchFn = async () => {
       try {
-        const { data } = await axios.get(
-          ` https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US&api_key=c2d5ae1916124f8e18d2a212d8e4ab11`
-        );
+        const data = await fetch(`movie/${movieId}/credits`);
         setCasts(data.cast);
-        console.log(data.cast);
       } catch (error) {
         console.log(error);
       }

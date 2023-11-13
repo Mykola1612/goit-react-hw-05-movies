@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { Loader } from 'components/Loader';
 import { useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import styles from '../components/MovieDetailsPage.module.css';
+import { fetch } from 'components/Fetch/fetch';
 
 const MoviesDetailsPge = () => {
   const { movieId } = useParams();
@@ -10,7 +10,6 @@ const MoviesDetailsPge = () => {
   const [film, setFilm] = useState(null);
 
   const location = useLocation();
-  console.log('location: ', location);
 
   const backLinkRef = useRef(location.state?.from ?? '/');
 
@@ -21,9 +20,7 @@ const MoviesDetailsPge = () => {
     const fetchFn = async () => {
       try {
         setLoader(true);
-        const { data } = await axios.get(
-          ` https://api.themoviedb.org/3/movie/${movieId}?language=en-US&api_key=c2d5ae1916124f8e18d2a212d8e4ab11`
-        );
+        const data = await fetch(`movie/${movieId}`);
         setFilm(data);
       } catch (error) {
       } finally {
