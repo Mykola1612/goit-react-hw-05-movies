@@ -1,8 +1,8 @@
-import { Loader } from 'components/Loader';
+import { Loader } from 'components/Loader/Loader';
 import { useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import styles from '../components/MovieDetailsPage.module.css';
-import { fetch } from 'components/Fetch/fetch';
+import styles from '../components/MovieDetailsPage/MovieDetailsPage.module.css';
+import { fetch } from 'components/fetchRequest/fetchRequest';
 
 const MoviesDetailsPge = () => {
   const { movieId } = useParams();

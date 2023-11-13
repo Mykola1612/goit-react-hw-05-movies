@@ -1,4 +1,4 @@
-import { fetch } from 'components/Fetch/fetch';
+import { fetch } from 'components/fetchRequest/fetchRequest';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 

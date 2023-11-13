@@ -1,9 +1,9 @@
-import { fetch } from 'components/Fetch/fetch';
+import { fetch } from 'components/fetchRequest/fetchRequest';
 import FilmsList from 'components/FilmsList/FilmsList';
-import { Loader } from 'components/Loader';
+import { Loader } from 'components/Loader/Loader';
 import Search from 'components/Search/Search';
 import { useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const MoviesPage = () => {
   const [searchFilms, setSearchFilms] = useState([]);
@@ -11,8 +11,6 @@ const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const queryValue = searchParams.get('query');
-
-  const location = useLocation();
 
   const handleSubmit = searchValue => {
     if (searchValue === '') {
@@ -46,7 +44,7 @@ const MoviesPage = () => {
     <div>
       {loader && <Loader />}
       <Search handleSubmit={handleSubmit} />
-      <FilmsList films={searchFilms} location={location} />
+      <FilmsList films={searchFilms} />
     </div>
   );
 };

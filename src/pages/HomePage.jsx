@@ -1,14 +1,11 @@
-import { fetch } from 'components/Fetch/fetch';
+import { fetch } from 'components/fetchRequest/fetchRequest';
 import FilmsList from 'components/FilmsList/FilmsList';
-import { Loader } from 'components/Loader';
+import { Loader } from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 const HomePage = () => {
   const [loader, setLoader] = useState(false);
   const [films, setFilms] = useState([]);
-
-  const location = useLocation();
 
   useEffect(() => {
     const fetchFn = async () => {
@@ -28,7 +25,7 @@ const HomePage = () => {
     <div>
       {loader && <Loader />}
       <h1>Trending today</h1>
-      <FilmsList films={films} location={location} />
+      <FilmsList films={films} />
     </div>
   );
 };

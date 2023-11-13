@@ -1,7 +1,7 @@
 import FilmsListItem from 'components/FilmsListItem/FilmsListItem';
 import React from 'react';
 
-const FilmsList = ({ films, location }) => {
+const FilmsList = ({ films }) => {
   return (
     <ul>
       {films.length !== 0 &&
@@ -11,7 +11,6 @@ const FilmsList = ({ films, location }) => {
             id={searchFilm.id}
             title={searchFilm.title}
             name={searchFilm.name}
-            location={location}
           />
         ))}
     </ul>
